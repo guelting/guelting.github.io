@@ -1,0 +1,77 @@
+﻿<html>
+<title>하비가젤 행쇼하세요!</title>
+<head>
+<style type="text/css">
+.timeBox {
+	background-color:#3CAEFF;
+	color:#FFF;
+	font-family:"Arial Black", Gadget, sans-serif;
+	font-size:50px;
+	font-weight:bold;
+	letter-spacing:2px;
+	display:inline;
+	
+}
+.clockStyle {
+	background-color:#FF7F7F;
+	padding:6px;
+	color:#FFF;
+	font-family:"Arial Black", Gadget, sans-serif;
+	font-size:30px;
+	font-weight:bold;
+	letter-spacing:2px;
+	display:inline;
+	
+}
+</style>
+<script type="text/javascript">
+function cdtd() {
+	var newyear = new Date("May 26, 2015 00:01:00")
+	var now = new Date();
+	var timeDiff = now.getTime()-newyear.getTime();
+
+	var seconds = Math.floor(timeDiff/1000);
+	var minutes = Math.floor(seconds/60);
+	var hours = Math.floor(minutes/60);
+	var days = Math.floor(hours/24);
+
+	seconds = seconds - 60*minutes
+	minutes = minutes - 60*hours
+	hours = hours-24*days;
+
+	if(days<10) {
+		days = "0"+days;
+	}
+	
+	if(hours<10) {
+		hours = "0"+hours;
+	}
+
+	if(minutes<10) {
+		minutes = "0"+minutes;
+	}
+	
+	if(seconds<10) {
+		seconds = "0"+seconds;
+	}
+
+	document.getElementById("DdayBox").innerHTML = days+"d "+hours+'h '+minutes+'m '+ seconds+'s';
+
+	var timer = setTimeout('cdtd()',1000);
+	
+}
+</script>
+</head>
+<body>
+<center>
+<b><br><br><font face="고딕" size =5>♡하비가젤♡</font></b><p>
+<p> ↓We've been together since May 25, 2015↓</p>
+<table height = "400x" cellpadding="50px" center background = "./images/1103_heart.jpg">
+<th>
+<div id = "DdayBox" class="clockStyle"></div>
+</th>
+</table>
+<p><img src = ></p>
+<script type = "text/javascript">cdtd();</script></center>
+</body>
+</html>
