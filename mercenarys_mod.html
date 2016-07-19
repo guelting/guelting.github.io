@@ -1,0 +1,76 @@
+<html>
+<head>
+	<title>Date-Change</title>
+	<style type="text/css">
+		table, th, td {
+	    border: 1px solid black;
+	    border-collapse: collapse;
+		}
+	</style>
+
+	<script type="text/javascript">
+		function getR() {
+			var month = Number(document.getElementById("monthR").value);
+			var date = Number(document.getElementById("dateR").value);
+			var totalDate = (month-1)*40 + (date-1);
+			var standard = new Date(2015,0,1)
+			document.getElementById("checkA").checked=false;
+			if (document.getElementById("checkR").checked){
+     			standard = new Date(2016,0,1);
+     			document.getElementById("checkA").checked=true;
+     		}
+     		standard.setTime(standard.getTime()+(totalDate*86400000));
+     		month = standard.getMonth()+1;
+     		date = standard.getDate();
+			document.getElementById("monthA").value = month;
+			document.getElementById("dateA").value = date;
+		}
+		function getA() {
+			var month = Number(document.getElementById("monthA").value);
+			var date = Number(document.getElementById("dateA").value);
+     		var standard = new Date(2015,0,1);
+     		var newDate = new Date(2015,month-1,date);
+     		document.getElementById("checkR").checked=false;
+     		if (document.getElementById("checkA").checked){
+     			standard = new Date(2016,0,1);
+     			newDate = new Date(2016,month-1,date);
+     			document.getElementById("checkR").checked=true;
+     		}
+     		var totalDate = (newDate.getTime()-standard.getTime())/86400000;
+     		month = Math.floor(totalDate/40)+1;
+     		date = totalDate%40+1;
+			document.getElementById("monthR").value = month;
+			document.getElementById("dateR").value = date;
+		}
+
+	</script>
+</head>
+<body>
+
+<table style="text-align: center; width: 50%;" align="center">
+	<tr>
+		<td>
+			<h1>RITIANA</h1>
+			<input type="checkbox" id="checkR"> 윤년<br>
+			<textarea cols="3" id="monthR"></textarea>월 
+			<textarea cols="3" id="dateR"></textarea>일
+		</td>
+		<td>
+			<button type="button" onclick="getR()"><h1>변환</h1></button>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<h1>AD</h1>
+			<input type="checkbox" id="checkA"> 윤년<br>
+			<textarea cols="3" id="monthA"></textarea>월 
+			<textarea cols="3" id="dateA"></textarea>일
+		</td>
+		<td>
+			<button type="button" onclick="getA()"><h1>변환</h1></button>
+		</td>
+	</tr>
+</table>
+
+</body>
+</html>
