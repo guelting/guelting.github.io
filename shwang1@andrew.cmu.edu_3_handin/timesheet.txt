@@ -1,0 +1,26 @@
+timesheet
+up to 11.18 server demo
+11.19 (Thu) 2h - game framework
+11.20 (Fri) 4h - graphics
+11.21
+11.22 (Sun) 2h - server + graphics/1h - competitive analysis
+11.23 (Mon) 3h - modes
+11.24 (Tue) Deliverable #1 2h - graphics and character selection
+11.25 (Wed) Most of the day but I can't tell exactly how much time I spent. 10h - graphics/connecting server with mode
+11.26 (Thur) 10h - bugs, bombs, new way to place objects
+11.27 (Fri) 10h - continued from Thursday
+11.28 (Sat) 10h - items
+11.29 .
+11.30 (Mon) 1h - integrating 1 player mode and multi player mode
+12.01 .
+12.02 (Wed) Deliverable #2 2h - fixed bomb bugs
+12.03 (Thurs) 5h - win/lose motion and win/lose screen
+12.04 .
+12.05 .
+12.06 (Sun) 2h - maps, item maps
+12.07 (Mon) 2h - cleaning server close + restart
+12.08 (Tue) 3h - Video work
+12.09 (Wen) 4h - UI changes and video
+12.10 (Thu) Deliverable #3
+
+Total 
