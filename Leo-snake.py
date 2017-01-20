@@ -22,13 +22,13 @@ def loadImages(data):
     data.images = [ ]
     for move in range(moves):
         num = move+1
-        filename = "images/Leo_%d.gif" % num
+        filename = "images_leo/Leo_%d.gif" % num
         data.images.append(PhotoImage(file=filename))
     data.chick = [ ]
     chicks = 4
     for chick in range(chicks):
         num = chick+1
-        filename = "images/Chick_%d.gif" % num
+        filename = "images_leo/Chick_%d.gif" % num
         data.chick.append(PhotoImage(file=filename))
 
 def getImage(data, move):
