@@ -1,0 +1,166 @@
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  	<title>Date-Change</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+  	<script type="text/javascript">
+      function validate(dateType,month,day,leap){
+        if (dateType === 'real'){
+          // 통상적인 날짜
+          // Check the ranges of month and year
+          if(month <= 0 || month > 12)
+            return false;
+
+          var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+
+          // Adjust for leap years
+          if (leap)
+            monthLength[1] = 29;
+
+          // Check the range of the day
+          return day > 0 && day <= monthLength[month - 1];
+        }
+
+        else {
+          // 넬슨
+          if(month < 0 || month > 9)
+            return false;
+
+          if (month == 0 && (!leap + day) > 6)
+            return false;
+
+          return day > 0 && day <= 40;
+        }
+      }
+
+      function getNelDate(month,date,leap){
+        if (month == 0)
+          return date;
+        else
+          return leap + 5 + (month - 1) * 40 + date;
+      }
+
+      function getNelTime(totalDays,leap){
+        var months = ["이름없는 달","노티무","마베치","티에코노","호포","트로비","프로스마","블리아엘","프알리에","디사베나"]
+        var leapDays = 5;
+        if (leap) leapDays = 6;
+        if (totalDays <= leapDays){
+          return [months[9],0,totalDays]
+        }
+        var m = Math.ceil((totalDays - leapDays) / 40);
+        var d = (totalDays - leapDays) % 40 || 40;
+        return [months[m],m,d]
+      }
+
+      function result(){
+          const day = 1000 * 3600 * 24;
+          var type = document.getElementById("dateType").value;
+          var result,totalDays,resMonth,resDate,resMonthName;
+          var month = Number(document.getElementById("monthR").value);
+          var date = Number(document.getElementById("dateR").value);
+          var zero = new Date(2015,0,1);
+          var leap = false;
+
+          // 윤년 체크
+          if (document.getElementById("checkR").checked){
+              zero = new Date(2016,0,1);
+              leap = true;
+          }
+
+          if (!validate(type,month,date,leap)){
+            alert('Invalid input');
+            return;
+          }
+
+          // 넬슨 input
+          // month * 40 + date = total day past from new year
+          // get/set month will return integer between 0 to 11 
+          // corresponding to January from December
+          // 0 월이 가장 앞에 옴에 주의
+          if (type === 'nelson'){
+              console.log('nelson to real');
+              var totalDays = getNelDate(month,date,leap);
+              console.log('totalDays',totalDays);
+              zero.setTime(zero.getTime() + ((totalDays - 1) * day));
+              resMonth = zero.getMonth() + 1;
+              resDate = zero.getDate();
+          }
+
+          // 리얼 input
+          // todal day past in nelson = (current - zero) / day
+          // 0 월이 가장 앞에 옴에 주의
+          else{
+              console.log('real to nelson');
+              var inputDate = new Date(2015 + leap, month-1, date);
+              var totalDays = Math.round((inputDate.getTime()-zero.getTime())/day) + 1;
+              console.log('totalDays',totalDays);
+              [resMonthName,resMonth,resDate] = getNelTime(totalDays,leap);
+              resMonth = "[" + resMonthName + "] " + resMonth
+          }
+          result = ">> " + resMonth + "월 " + resDate + "일";
+          console.log(result);
+          document.getElementById('result').innerHTML = result;
+      }
+  	</script>
+  </head>
+  <body>
+    <div style = "margin-left:10%; margin-right:10%; margin-top:5%">
+    <div class="jumbotron">
+      <h1 class="display-3">Date Calculator</h1>
+      <p class="lead">
+        자캐커뮤 Ms Expedition(이하 원정대) 세계관과 현실 사이의 날짜 호환을 위해 네즈(@doit_kr)가 만든 날짜 변환기입니다.
+      </p>
+      <p>
+        리티아나력 0월 - 9월 순서로 리얼타임 1월 - 12월과 호환됩니다.<br>
+        ex) [이름없는 달] 0월 1일 = 1월 1일, [디사베나] 9월 40일 = 12월 31일<br>
+        윤년의 경우 0월을 6일까지 셉니다.<br>
+        ex) [이름없는 달] 0월 6일 = 1월 6일
+
+      </p>
+      <hr class="my-4">
+      <div class="card">
+        <div class="card-block">
+          <form class="form-inline">
+            <select id="dateType" class="form-control">
+                <option value="real">리얼타임 -> 넬슨</option>
+                <option value="nelson">넬슨 -> 리얼타임</option>
+            </select>
+            <div class="form-group">
+              <label for="monthR">Month</label>
+              <input type="number" class="form-control" id="monthR">
+            </div>
+            <div class="form-group">
+              <label for="dateR">Day</label>
+              <input type="number" class="form-control" id="dateR">
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="checkR"> 윤년
+              </label>
+            </div>
+            <button type="button" class="btn btn-default" onclick="result()">Submit</button>
+          </form>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="card">
+        <div class="card-block" id="result">
+        </div>
+      </div>
+    </div>
+    </div>
+      
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+  </body>
+</html>
