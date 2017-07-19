@@ -7,7 +7,29 @@
   	<title>Date-Change</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/css/bootstrap-slider.css" rel="stylesheet">
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.1/bootstrap-slider.js"></script>
   	<script type="text/javascript">
+      let results = {
+        resMonthName : '',
+        resMonth : 0,
+        resDate : 0
+      };
+      let months = ["이름없는 달","노티무","마베치","티에코노","호포","트로비","프로스마","블리아엘","프알리에","디사베나"]
+      $(function(){
+        var formatter = (n) => (results.resMonthName+results.resDate)
+        results.mySlider = $("#ex14").slider({
+          tooltip: 'always',
+          // tooltip_position:'bottom',
+          value:0,
+          formatter
+        });
+      })
       function validate(dateType,month,day,leap){
         if (dateType === 'real'){
           // 통상적인 날짜
@@ -45,7 +67,6 @@
       }
 
       function getNelTime(totalDays,leap){
-        var months = ["이름없는 달","노티무","마베치","티에코노","호포","트로비","프로스마","블리아엘","프알리에","디사베나"]
         var leapDays = 5;
         if (leap) leapDays = 6;
         if (totalDays <= leapDays){
@@ -55,7 +76,7 @@
         var d = (totalDays - leapDays) % 40 || 40;
         return [months[m],m,d]
       }
-
+      let totalDays;
       function result(){
           const day = 1000 * 3600 * 24;
           var type = document.getElementById("dateType").value;
@@ -83,7 +104,10 @@
           // 0 월이 가장 앞에 옴에 주의
           if (type === 'nelson'){
               console.log('nelson to real');
-              var totalDays = getNelDate(month,date,leap);
+              results.resMonthName = months[month];
+              results.resMonth = month;
+              results.resDate = date;
+              totalDays = getNelDate(month,date,leap);
               console.log('totalDays',totalDays);
               zero.setTime(zero.getTime() + ((totalDays - 1) * day));
               resMonth = zero.getMonth() + 1;
@@ -96,21 +120,46 @@
           else{
               console.log('real to nelson');
               var inputDate = new Date(2015 + leap, month-1, date);
-              var totalDays = Math.round((inputDate.getTime()-zero.getTime())/day) + 1;
+              totalDays = Math.round((inputDate.getTime()-zero.getTime())/day) + 1;
               console.log('totalDays',totalDays);
               [resMonthName,resMonth,resDate] = getNelTime(totalDays,leap);
               resMonth = "[" + resMonthName + "] " + resMonth
+              results.resMonthName = resMonthName;
+              results.resDate = resDate;
           }
+          console.log(results)
+          results.mySlider.slider('setValue',totalDays);
           result = ">> " + resMonth + "월 " + resDate + "일";
-          console.log(result);
+          console.log(result,totalDays);
           document.getElementById('result').innerHTML = result;
-      }
+        }
   	</script>
+    <style type="text/css">
+      .tooltip{
+        opacity: 1;
+      }
+      .slider.slider-horizontal {
+        width: 100%;
+        height: 20px;
+      }
+      .slider-tick {
+        opacity: 0;
+      }
+      .slider-tick.in-selection{
+        opacity: 0;
+      }
+      .slider-selection.tick-slider-selection{
+        opacity: 0;
+      }
+      .slider.slider-disabled .slider-handle {
+        opacity: 1;
+      }
+    </style>
   </head>
   <body>
     <div style = "margin-left:10%; margin-right:10%; margin-top:5%">
     <div class="jumbotron">
-      <h1 class="display-3">Date Calculator</h1>
+      <h1 class="display-3">날짜변환기</h1>
       <p class="lead">
         자캐커뮤 Ms Expedition(이하 원정대) 세계관과 현실 사이의 날짜 호환을 위해 네즈(@doit_kr)가 만든 날짜 변환기입니다.
       </p>
@@ -153,14 +202,13 @@
         <div class="card-block" id="result">
         </div>
       </div>
+      <p>
+      <div>
+        <input id="ex14" type="text" data-slider-ticks="[0, 121, 242, 365]" data-slider-ticks-labels='["봄", "여름", "가을", "겨울"]'/>
+      </div>
+      </p>
     </div>
     </div>
       
-
-    <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-
   </body>
 </html>
