@@ -15,6 +15,9 @@ table.center {
 table, th, td {
   border: 1px solid black;
 }
+th, td {
+  padding: 15px;
+}
 </style>
 <body>
 <h1>Technical Animation S19</h1>
@@ -100,7 +103,7 @@ table, th, td {
     <td>27 Feb</td>
     <td>8. More Fluids</td>
     <td>
-      I think liked the visuals of different simulation methods. To see different simulations in one view made it quite clear which method is stable and which is believable. (Sorry I've been neglecting this webpage for the past month and honestly I can't quite remember the details..) 
+      I liked the visuals of different simulation methods. To see different simulations in one view made it quite clear which method is stable and which is believable. (Sorry I've been neglecting this webpage for the past month and honestly I can't quite remember the details..) 
     </td>
   </tr>
   <tr>
@@ -128,14 +131,61 @@ table, th, td {
     <td>25 Mar</td>
     <td>12. Particle based systems</td>
     <td>
-      First of all, the particle based system was so cool! It was surprising that such simple looking algorithm would give realistic results. Though I wonder how they actually render particles as solid objects. (Some kind of edge detection?) 
+      First of all, the particle based system was so cool! It was surprising that such simple looking algorithm would give realistic results. Though I wonder how they actually render particles as solid objects. (Some kind of edge detection?) There's definitly a lot more about different constraints and fluid/solid simulation..
     </td>
   </tr>
   <tr>
     <td>27 Mar</td>
     <td>13. Deformables</td>
-      So from What I understand, most of the simulation routines are pretty similar.. It's just the detail that is slightly different? I was interested in how deformable objects were dealt with technically, and this class helped me to understand a little bit more of their implementation. However, I think I should go through the papers again in my own time to grasp exactly what it's all about.. Still a little bit confused.. The neo-hookean model looked very believable, and the moving objects using deformables were cute but effective. 
     <td>
+      So from What I understand, most of the simulation routines are pretty similar.. It's just the detail that is slightly different? I was interested in how deformable objects were dealt with technically, and this class helped me to understand a little bit more of their implementation. However, I think I should go through the papers again in my own time to grasp exactly what it's all about.. Still a little bit confused.. The neo-hookean model looked very believable, and I especially liked the deformables with change of rest shape that made objects have life. 
+    </td>
+  </tr>
+
+  <tr>
+    <td>1 Apr</td>
+    <td>14. Paper presentation 3</td>
+    <td>
+      The papers today were very interesting. The first one, boundary method was cool in a sense that they are trying to simulate the water in a set boundary. This paper did something weird in my sense, which was to create water molecule from the edge of the boundary and kill water molecules that are out of the boundary. Apparently this way they can simulate waves in a cup or a bowl. I was not so sure about the second and third paper, the fast energy projection paper and the Face simulation paper, but the Wave based sound synthesis was super interesting. I always thought the sound would be recoreded and added to the scene as a secondary component, however, I never thought of simulating the sound with physical simulaion. The concept to see air, which is the transmission medium of the sound, as fluid and simulate the sound was new to me. There were also few optimization with the sound since it needs a lot of sampling.
+    </td>
+  </tr>
+
+  <tr>
+    <td>3 Apr</td>
+    <td>15. Faces and Hair</td>
+    <td>
+       We talked about face in last class briefly in face paper, and today we looked into more papers. Stylized facial animation paper explored how to use blendshape in more extreme. I think the results were pretty cool tho other classmates commented that they look little bit unnatural. We also talked about combining physical simulations and facial expression, which was the enhancing facialrigs with simulation paper. The point that I was amazed was the fact that people actually try to mimick the real word to such detail. Anatomical facial rig followed next. I'm not sure how I feel about these.. I think I prefer the more stylized animation over realistic ones. It's very hard to make realistic simulations to completely match the reality. I wanted to see more of the hair simulation!
+    </td>
+  </tr>
+
+  <tr>
+    <td>8 Apr</td>
+    <td>16. Human body</td>
+    <td>
+      We went over another paper today at the start of the lecture about hybird grains. It was a paper about how to combine discrete simulation with continuous simulation to simulate granular meterials. The concept was pretty solid and the results were believable however seems like some of the simulation the hybrid model shows slightly different behavior than the ground truth. Also why would they compared to other simulation not reality?
+      The human body papers were mostly simulating how skin works. All were great efforts but I guess body simulation is still in progress. I thought the data driven soft tissue animation was not realistic when they rotated the body and computational body-building looked quite stiff. The foot paper was quite new. I recently got into drawing prostetic foots, and I realized that the foot model they were using in multi segment foot modeling paper is actually somewhat similar to the structure of prostetics.
+    </td>
+  </tr>
+
+  <tr>
+    <td>10 Apr</td>
+    <td>17. Character simulation and body</td>
+    <td>
+      This class was about simulating motion of the body. Going through the papers in chronological order was useful in a sense that I could see where this technology started from and where it is going towards to. We started from controllers and moved towards to simplified versions. Some of them looked stiff and not very real like, however a lot of papers were trying to overcome it. I thought we made pretty big progresses after seeing the boston dynamics robots. 
+    </td>
+  </tr>
+  <tr>
+    <td>15 Apr</td>
+    <td>18.</td>
+    <td>
+      
+    </td>
+  </tr>
+  <tr>
+    <td>17 Apr</td>
+    <td>19.</td>
+    <td>
+      
     </td>
   </tr>
 </table>
